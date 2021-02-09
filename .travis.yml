@@ -1,0 +1,28 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t saranraju/dockerrecattest -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true saranraju/dockerrecattest npm test -- --coverage
+
+after_success:
+  - docker build -t saranraju/multi-client ./client  
+  - docker build -t saranraju/multi-nginx ./nginx
+  - docker build -t saranraju/multi-server ./server  
+  - docker build -t saranraju/multi-worker ./worker  
+
+ #  LOG into docker CLI  
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+ # take thode images and push them to dockerHUB
+
+  - docker push saranraju/multi-client
+  - docker push saranraju/multi-nginx
+  - docker push saranraju/multi-server
+  - docker push saranraju/multi-worker
+
