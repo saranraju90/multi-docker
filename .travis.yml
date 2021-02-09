@@ -4,16 +4,16 @@ services:
   - docker
 
 before_install:
-  - docker build -t saranraju/dockerrecattest -f ./client/Dockerfile.dev ./client
+  - docker build -t saranraju90/dockerrecattest -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true saranraju/dockerrecattest npm test -- --coverage
+  - docker run -e CI=true saranraju90/dockerrecattest npm test -- --coverage
 
 after_success:
-  - docker build -t saranraju/multi-client ./client  
-  - docker build -t saranraju/multi-nginx ./nginx
-  - docker build -t saranraju/multi-server ./server  
-  - docker build -t saranraju/multi-worker ./worker  
+  - docker build -t saranraju90/multi-client ./client  
+  - docker build -t saranraju90/multi-nginx ./nginx
+  - docker build -t saranraju90/multi-server ./server  
+  - docker build -t saranraju90/multi-worker ./worker  
 
  #  LOG into docker CLI  
 
@@ -21,8 +21,8 @@ after_success:
 
  # take thode images and push them to dockerHUB
 
-  - docker push saranraju/multi-client
-  - docker push saranraju/multi-nginx
-  - docker push saranraju/multi-server
-  - docker push saranraju/multi-worker
+  - docker push saranraju90/multi-client
+  - docker push saranraju90/multi-nginx
+  - docker push saranraju90/multi-server
+  - docker push saranraju90/multi-worker
 
